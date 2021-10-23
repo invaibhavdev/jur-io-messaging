@@ -1,24 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import logo from "./logo.svg";
+import { store } from "./app/store";
+import "./App.css";
+import Contacts from "./components/Contacts";
+import { Provider } from "react-redux";
 
 function App() {
+  function Home() {
+    return <h2>Home</h2>;
+  }
+
+  function Me() {
+    return <h2>Select yourself</h2>;
+  }
+
+  // function Contacts() {
+  //   return <h2>Select Contacts</h2>;
+  // }
+  function Conversations() {
+    return <h2>Select Conversations</h2>;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/me">Me</Link>
+              </li>
+              <li>
+                <Link to="/contacts">Contacts</Link>
+              </li>
+              <li>
+                <Link to="/conversations">Conversations</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/me">
+              <Me />
+            </Route>
+            <Route path="/contacts">
+              <Contacts />
+            </Route>
+            <Route path="/conversations">
+              <Conversations />
+            </Route>
+            <Route path="/conversations/:id">
+              <div>Messages</div>
+            </Route>
+            <Route path="/">Welcome</Route>
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 

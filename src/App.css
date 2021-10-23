@@ -1,3 +1,10 @@
+@import "~antd/dist/antd.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+body {
+  font-size: 10px;
+  font-family: Roboto, sans-serif;
+}
 .App {
   text-align: center;
 }
@@ -26,6 +33,29 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.h1 {
+  font-size: 5em !important;
+  font-weight: normal !important;
+  font-family: inherit;
+}
+
+.cta-btn {
+  height: 63px;
+  padding: 21px 24px;
+  font-family: "Roboto Mono", Roboto, sans-serif;
+  font-size: 1.6em;
+  line-height: 1.4em;
+  background-color: #fff;
+  border: 1px solid #000000;
+  box-shadow: 0px 2px 0px #000000;
+  border-radius: 8px;
+  color: #000;
+}
+.cta-btn:hover {
+  border: 1px solid #000000;
+  color: #000;
 }
 
 @keyframes App-logo-spin {
