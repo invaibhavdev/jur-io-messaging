@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import { store } from "./app/store";
 import "./App.css";
 import Contacts from "./components/Contacts";
+import NewConversation from "./components/NewConversation";
+import Conversations from "./components/Conversations";
 import { Provider } from "react-redux";
 
 function App() {
@@ -14,12 +16,6 @@ function App() {
     return <h2>Select yourself</h2>;
   }
 
-  // function Contacts() {
-  //   return <h2>Select Contacts</h2>;
-  // }
-  function Conversations() {
-    return <h2>Select Conversations</h2>;
-  }
   return (
     <Provider store={store}>
       <Router>
@@ -48,11 +44,14 @@ function App() {
             <Route path="/contacts">
               <Contacts />
             </Route>
-            <Route path="/conversations">
-              <Conversations />
+            <Route path="/conversations/new">
+              <NewConversation />
             </Route>
             <Route path="/conversations/:id">
               <div>Messages</div>
+            </Route>
+            <Route path="/conversations">
+              <Conversations />
             </Route>
             <Route path="/">Welcome</Route>
           </Switch>

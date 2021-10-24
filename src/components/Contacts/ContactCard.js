@@ -1,6 +1,6 @@
 import { Avatar } from "antd";
 import styled from "styled-components";
-import { HomePageConstants } from "../../utils/constants";
+import { HomePageConstants, DefaultAvatar } from "../../utils/constants";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 `;
 const ContactCard = ({
   name,
-  avatar = HomePageConstants.contactCardDefaultAvatar,
+  avatar = DefaultAvatar,
   about = HomePageConstants.contactCardDefaultAbout,
   selected = true,
 }) => {

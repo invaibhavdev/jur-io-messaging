@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Radio, Typography } from "antd";
 
 import ContactCard from "./ContactCard";
 
 import { HomePageConstants } from "../../utils/constants";
-import { fetchConversationsList, fetchUsersData } from "../../app/actions";
+import { fetchUsersData } from "../../app/actions";
 
-const ContactList = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,6 +53,7 @@ const ContactList = styled.div`
 const { Title } = Typography;
 const Contacts = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const list = useSelector((state) => state.contacts);
   const [value, setValue] = useState(-1);
 
@@ -61,7 +62,11 @@ const Contacts = () => {
     setValue(e.target.value);
   };
   const handleCtaClick = () => {
-    dispatch(fetchConversationsList(value));
+    const selectedUser = list.find((item) => item.id === value);
+    if (selectedUser) {
+      sessionStorage.setItem("selectedUser", JSON.stringify(selectedUser));
+      history.push("/conversations");
+    }
   };
   const renderList = (list) => {
     const result = list.map((listItem) => {
@@ -71,6 +76,7 @@ const Contacts = () => {
             <ContactCard
               selected={listItem.id === value}
               name={listItem.name}
+              about={listItem.about}
             />
           </div>
         ),
@@ -85,7 +91,7 @@ const Contacts = () => {
   }, [dispatch]);
 
   return (
-    <ContactList>
+    <Wrapper>
       <Title className="h1">{HomePageConstants.headerText}</Title>
       {list ? (
         <div className="user-list">
@@ -101,7 +107,7 @@ const Contacts = () => {
           {HomePageConstants.continueButtonText}
         </Button>
       ) : null}
-    </ContactList>
+    </Wrapper>
   );
 };
 
