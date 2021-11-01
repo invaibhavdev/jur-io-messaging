@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button, Typography, Row, Col } from "antd";
 import { fetchConversationsList } from "../../app/actions";
-import { ConversationListConstants } from "../../utils/constants";
+import { getUserIdFromSession } from "../../utils";
+import { ConversationListConstants, baseUrl } from "../../utils/constants";
 import { TitleLoader, ConversationsListPageLoader } from "../common/Skeletons";
 import Layout from "../common/Layout";
 
@@ -14,6 +15,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   .conversation-card {
+    max-width: 900px;
     cursor: pointer;
     margin-bottom: 1.6em;
     &:last-of-type {
@@ -48,13 +50,20 @@ const Wrapper = styled.div`
     align-self: flex-end;
   }
 `;
+function getUserId() {
+  try {
+    return getUserIdFromSession();
+  } catch (e) {
+    window.location.href = `${baseUrl}/contacts`;
+  }
+}
 const { Title } = Typography;
 const Conversations = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const list = useSelector((state) => state.conversations);
   const loading = useSelector((state) => state.loading);
-  const [currentUserId, setCurrentUserId] = useState(-1);
+  const currentUserId = getUserId();
 
   const renderList = (list) => {
     const result = list.map((listItem) => {
