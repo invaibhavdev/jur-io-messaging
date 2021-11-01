@@ -1,6 +1,17 @@
-# Getting Started with Create React App
+# Getting Started with the app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Steps required
+
+### Set up .env file with following values:
+`REACT_APP_API_BASE_URL=http://34.122.252.114:3000`
+
+`REACT_APP_BASE_URL=http://localhost:3000`
+
+## Install Dependencies
+
+To install dependencies, please run:
+
+### `yarn install`
 
 ## Available Scripts
 
