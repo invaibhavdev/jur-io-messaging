@@ -1,5 +1,9 @@
 // holds static values
 
+export const apiURL = process.env.REACT_APP_API_BASE_URL;
+
+export const baseUrl = process.env.REACT_APP_BASE_URL;
+
 export const DefaultAvatar = (
   <svg
     width="48"
@@ -57,5 +61,3 @@ export const StartConversationConstants = {
 export const ConversationPage = {
   sendButtonText: "Send",
 };
-
-export const apiURL = process.env.REACT_APP_API_BASE_URL;

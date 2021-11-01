@@ -8,6 +8,8 @@ import ContactCard from "./ContactCard";
 
 import { HomePageConstants } from "../../utils/constants";
 import { fetchUsersData } from "../../app/actions";
+import { TitleLoader, ContactsPageLoader } from "../common/Skeletons";
+import Layout from "../common/Layout";
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,12 +51,19 @@ const Wrapper = styled.div`
   .btn {
     align-self: flex-end;
   }
+  .card-loader {
+    width: 100%;
+    @media only screen and (min-width: 768px) {
+      max-width: 300px;
+    }
+  }
 `;
 const { Title } = Typography;
 const Contacts = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const list = useSelector((state) => state.contacts);
+  const loading = useSelector((state) => state.loading);
   const [value, setValue] = useState(-1);
 
   const onChangeUser = (e) => {
@@ -90,24 +99,36 @@ const Contacts = () => {
     dispatch(fetchUsersData());
   }, [dispatch]);
 
-  return (
-    <Wrapper>
-      <Title className="h1">{HomePageConstants.headerText}</Title>
-      {list ? (
-        <div className="user-list">
-          <Radio.Group
-            options={renderList(list)}
-            onChange={onChangeUser}
-            value={value}
-          />
+  if (loading) {
+    return (
+      <Wrapper>
+        <TitleLoader />
+        <div className="card-loader">
+          <ContactsPageLoader />
         </div>
-      ) : null}
-      {value > -1 ? (
-        <Button className="btn cta-btn" onClick={handleCtaClick}>
-          {HomePageConstants.continueButtonText}
-        </Button>
-      ) : null}
-    </Wrapper>
+      </Wrapper>
+    );
+  }
+  return (
+    <Layout>
+      <Wrapper>
+        <Title className="h1">{HomePageConstants.headerText}</Title>
+        {list ? (
+          <div className="user-list">
+            <Radio.Group
+              options={renderList(list)}
+              onChange={onChangeUser}
+              value={value}
+            />
+          </div>
+        ) : null}
+        {value > -1 ? (
+          <Button className="btn cta-btn" onClick={handleCtaClick}>
+            {HomePageConstants.continueButtonText}
+          </Button>
+        ) : null}
+      </Wrapper>
+    </Layout>
   );
 };
 

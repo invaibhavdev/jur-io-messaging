@@ -20,6 +20,11 @@ const reducer = (
       return { ...state, conversations: action.payload };
     case "FETCH_CHAT_SUCCESS":
       return { ...state, chat: action.payload };
+    case "FETCH_CONVERSATION_MESSAGES_SUCCESS":
+      return {
+        ...state,
+        chat: { ...state.chat, recent_messages: action.payload },
+      };
     case "SHOW_SNACKBAR": {
       const newState = {
         ...state,

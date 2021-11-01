@@ -5,11 +5,14 @@ import styled from "styled-components";
 import { Button, Typography, Row, Col } from "antd";
 import { fetchConversationsList } from "../../app/actions";
 import { ConversationListConstants } from "../../utils/constants";
+import { TitleLoader, ConversationsListPageLoader } from "../common/Skeletons";
+import Layout from "../common/Layout";
+
 import ConversationCard from "./ConversationCard";
 
 const Wrapper = styled.div`
-  width: 100%;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   .conversation-card {
     cursor: pointer;
     margin-bottom: 1.6em;
@@ -42,8 +45,6 @@ const Wrapper = styled.div`
     margin-bottom: 3.6em;
   }
   .btn {
-    position: relative;
-    left: 100%;
     align-self: flex-end;
   }
 `;
@@ -52,6 +53,7 @@ const Conversations = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const list = useSelector((state) => state.conversations);
+  const loading = useSelector((state) => state.loading);
   const [currentUserId, setCurrentUserId] = useState(-1);
 
   const renderList = (list) => {
@@ -71,7 +73,7 @@ const Conversations = () => {
         <div
           role="link"
           onClick={() => {
-            history.push(`/conversation/${listItem.id}`);
+            history.push(`/conversations/${listItem.id}`);
           }}
           className="conversation-card"
         >
@@ -92,32 +94,38 @@ const Conversations = () => {
   };
 
   useEffect(() => {
-    let selectedUser = sessionStorage.getItem("selectedUser");
-    if (selectedUser) {
-      selectedUser = JSON.parse(selectedUser);
-      const userId = selectedUser.id;
-      setCurrentUserId(userId);
-      dispatch(fetchConversationsList(userId));
-    }
+    dispatch(fetchConversationsList());
   }, [dispatch]);
 
+  if (loading) {
+    return (
+      <Row>
+        <Col span={6} offset={2}>
+          <Wrapper>
+            <TitleLoader />
+            <ConversationsListPageLoader />
+          </Wrapper>
+        </Col>
+        <Col span={4}></Col>
+      </Row>
+    );
+  }
+
   return (
-    <Row>
-      <Col span={10} offset={2}>
-        <Wrapper>
-          <Title className="h1">{ConversationListConstants.headerText}</Title>
-          {list ? <div className="user-list">{renderList(list)}</div> : null}
-          <Button
-            className="btn cta-btn"
-            onClick={() => {
-              history.push("/conversations/new");
-            }}
-          >
-            {ConversationListConstants.continueButtonText}
-          </Button>
-        </Wrapper>
-      </Col>
-    </Row>
+    <Layout>
+      <Wrapper>
+        <Title className="h1">{ConversationListConstants.headerText}</Title>
+        {list ? <div className="user-list">{renderList(list)}</div> : null}
+        <Button
+          className="btn cta-btn"
+          onClick={() => {
+            history.push("/conversations/new");
+          }}
+        >
+          {ConversationListConstants.continueButtonText}
+        </Button>
+      </Wrapper>
+    </Layout>
   );
 };
 

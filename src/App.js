@@ -1,46 +1,19 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import logo from "./logo.svg";
+import { Router, Switch, Route, Link } from "react-router-dom";
+import { Provider } from "react-redux";
 import { store } from "./app/store";
+import history from "./utils/history";
 import "./App.css";
 import Contacts from "./components/Contacts";
 import NewConversation from "./components/NewConversation";
 import Conversations from "./components/Conversations";
-import { Provider } from "react-redux";
+import Chat from "./components/Chat";
 
 function App() {
-  function Home() {
-    return <h2>Home</h2>;
-  }
-
-  function Me() {
-    return <h2>Select yourself</h2>;
-  }
-
   return (
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/me">Me</Link>
-              </li>
-              <li>
-                <Link to="/contacts">Contacts</Link>
-              </li>
-              <li>
-                <Link to="/conversations">Conversations</Link>
-              </li>
-            </ul>
-          </nav>
-
           <Switch>
-            <Route path="/me">
-              <Me />
-            </Route>
             <Route path="/contacts">
               <Contacts />
             </Route>
@@ -48,12 +21,14 @@ function App() {
               <NewConversation />
             </Route>
             <Route path="/conversations/:id">
-              <div>Messages</div>
+              <Chat />
             </Route>
             <Route path="/conversations">
               <Conversations />
             </Route>
-            <Route path="/">Welcome</Route>
+            <Route path="/">
+              <Contacts />
+            </Route>
           </Switch>
         </div>
       </Router>

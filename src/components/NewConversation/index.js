@@ -6,7 +6,8 @@ import {
   SelectContactsConstants,
   StartConversationConstants,
 } from "../../utils/constants";
-import { createConversation } from "../../app/actions";
+import { createConversation, fetchUsersData } from "../../app/actions";
+import Layout from "../common/Layout";
 import SetUpConversation from "./SetUpConversation";
 import SelectContactScreen from "./SelectContacts";
 
@@ -63,11 +64,16 @@ const Conversations = () => {
   const dispatch = useDispatch();
   // const history = useHistory();
   const list = useSelector((state) => state.contacts);
+  const conversationList = useSelector((state) => state.conversations);
   const [value, setValue] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
   const [nextStep, setNextStep] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
   const [pageSubTitle, setPageSubTitle] = useState("");
+  const [showPageSubtitle, setShowPageSubtitle] = useState(
+    conversationList && conversationList.length > 0 ? false : true
+  );
+  const [showBackButton, setShowBackButton] = useState(false);
   const onSelectedChange = (values) => {
     // update checked value list
     setValue(values);
@@ -83,6 +89,8 @@ const Conversations = () => {
     );
     setPageSubTitle(subtitle);
     setNextStep(true);
+    setShowBackButton(true);
+    setShowPageSubtitle(true);
   };
   const chatMembers = (selected = [], list = []) => {
     return list.filter((listItem) => selected.indexOf(listItem.id) > -1);
@@ -92,36 +100,44 @@ const Conversations = () => {
     if (selectedUser) {
       selectedUser = JSON.parse(selectedUser);
       // const userId = selectedUser.id;
+      const firstName = selectedUser.name.split(" ")[0];
       setSelectedUser(selectedUser);
       const title = SelectContactsConstants.topHeaderText.replace(
         "$user$",
-        selectedUser.name
+        firstName
       );
       setPageTitle(title);
       setPageSubTitle(SelectContactsConstants.topSubHeaderText);
     }
+    if (!list) {
+      dispatch(fetchUsersData());
+    }
   }, [dispatch]);
   return (
-    <Wrapper>
-      <Title className="h1">{pageTitle}</Title>
-      <Title className="h2" level={2}>
-        {pageSubTitle}
-      </Title>
-      {!nextStep ? (
-        <SelectContactScreen
-          list={list}
-          value={value}
-          onChange={onSelectedChange}
-          selectedUser={selectedUser}
-          handleCtaClick={handleContinueClick}
-        />
-      ) : (
-        <SetUpConversation
-          members={chatMembers(value, list)}
-          handleClick={handleCtaClick}
-        />
-      )}
-    </Wrapper>
+    <Layout showBackButton={showBackButton} title="">
+      <Wrapper>
+        <Title className="h1">{pageTitle}</Title>
+        {showPageSubtitle ? (
+          <Title className="h2" level={2}>
+            {pageSubTitle}
+          </Title>
+        ) : null}
+        {!nextStep ? (
+          <SelectContactScreen
+            list={list}
+            value={value}
+            onChange={onSelectedChange}
+            selectedUser={selectedUser}
+            handleCtaClick={handleContinueClick}
+          />
+        ) : (
+          <SetUpConversation
+            members={chatMembers(value, list)}
+            handleClick={handleCtaClick}
+          />
+        )}
+      </Wrapper>
+    </Layout>
   );
 };
 

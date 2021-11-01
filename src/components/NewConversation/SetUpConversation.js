@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   padding: 3.6em;
-  align-self: flex-start;
+  //   align-self: flex-start;
   .selectedMemberListWrapper {
     display: flex;
     flex-wrap: wrap;
