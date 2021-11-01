@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import ContactCard from "../Contacts/ContactCard";
 import { SelectContactsConstants } from "../../utils/constants";
 import { Button, Checkbox, Typography } from "antd";
@@ -19,6 +20,7 @@ const SelectContactScreen = ({
           label: (
             <div className="contact-card">
               <ContactCard
+                key={listItem.id}
                 selected={value.indexOf(listItem.id) > -1}
                 name={listItem.name}
               />
@@ -46,6 +48,14 @@ const SelectContactScreen = ({
       ) : null}
     </>
   );
+};
+
+SelectContactScreen.propTypes = {
+  handleCtaClick: PropTypes.func,
+  list: PropTypes.array,
+  onChange: PropTypes.func,
+  value: PropTypes.any,
+  selectedUser: PropTypes.any,
 };
 
 export default SelectContactScreen;

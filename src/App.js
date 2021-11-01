@@ -1,4 +1,4 @@
-import { Router, Switch, Route, Link } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import history from "./utils/history";

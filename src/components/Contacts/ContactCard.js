@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Avatar } from "antd";
 import styled from "styled-components";
 import { HomePageConstants, DefaultAvatar } from "../../utils/constants";
@@ -37,6 +38,13 @@ const ContactCard = ({
       </div>
     </Wrapper>
   );
+};
+
+ContactCard.propTypes = {
+  name: PropTypes.string,
+  about: PropTypes.string,
+  selected: PropTypes.bool,
+  avatar: PropTypes.any,
 };
 
 export default ContactCard;

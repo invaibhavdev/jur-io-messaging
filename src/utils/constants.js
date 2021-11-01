@@ -1,7 +1,9 @@
 // holds static values
 
+// eslint-disable-next-line no-undef
 export const apiURL = process.env.REACT_APP_API_BASE_URL;
 
+// eslint-disable-next-line no-undef
 export const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const DefaultAvatar = (
@@ -12,11 +14,11 @@ export const DefaultAvatar = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_198:1832)">
+    <g clipPath="url(#clip0_198:1832)">
       <path
         d="M7.33337 40.6667C7.33337 34.4167 15.6667 34.4167 19.8334 30.25C21.9167 28.1667 15.6667 28.1667 15.6667 17.75C15.6667 10.8063 18.4438 7.33337 24 7.33337C29.5563 7.33337 32.3334 10.8063 32.3334 17.75C32.3334 28.1667 26.0834 28.1667 28.1667 30.25C32.3334 34.4167 40.6667 34.4167 40.6667 40.6667"
         stroke="black"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </g>
     <path

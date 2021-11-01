@@ -71,6 +71,7 @@ const Conversations = () => {
       }
       return (
         <div
+          key={listItem.id}
           role="link"
           onClick={() => {
             history.push(`/conversations/${listItem.id}`);
