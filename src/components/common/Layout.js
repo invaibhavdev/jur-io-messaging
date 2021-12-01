@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import { Button, Row, Col } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router";
 
-const Layout = ({ children, title, showBackButton }) => {
+const Layout = ({ children, showBackButton }) => {
   const history = useHistory();
   return (
     <div style={{ paddingTop: "4em", paddingBottom: "4em" }}>
@@ -19,6 +20,11 @@ const Layout = ({ children, title, showBackButton }) => {
       </Row>
     </div>
   );
+};
+
+Layout.propTypes = {
+  showBackButton: PropTypes.bool,
+  children: PropTypes.any,
 };
 
 export default Layout;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Avatar } from "antd";
 import { DefaultAvatar } from "../../utils/constants";
@@ -56,6 +57,15 @@ const MessageCard = ({
       </div>
     </Wrapper>
   );
+};
+
+MessageCard.propTypes = {
+  createdAt: PropTypes.string,
+  senderName: PropTypes.string,
+  highlight: PropTypes.bool,
+  message: PropTypes.string,
+  self: PropTypes.bool,
+  avatar: PropTypes.any,
 };
 
 export default MessageCard;

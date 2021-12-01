@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import styled from "styled-components";
 import { Button, Input } from "antd";
@@ -91,6 +92,11 @@ const SetUpConversation = ({ members, handleClick }) => {
       </div>
     </Wrapper>
   );
+};
+
+SetUpConversation.propTypes = {
+  members: PropTypes.array,
+  handleClick: PropTypes.func,
 };
 
 export default SetUpConversation;

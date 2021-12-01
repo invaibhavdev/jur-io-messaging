@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import { Button, Input, Typography, Row, Col } from "antd";
+import { Button, Input, Typography, Col } from "antd";
 
 import { CloseOutlined } from "@ant-design/icons";
 import { getUserIdFromSession } from "../../utils";
@@ -91,7 +91,7 @@ function Chat() {
   const renderMessageList = (list) => {
     return list
       .map((message) => (
-        <div className="message-card">
+        <div key={message.id} className="message-card">
           <MessageCard
             key={message.id}
             senderName={message.sender_name}

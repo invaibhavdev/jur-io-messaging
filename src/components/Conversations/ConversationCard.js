@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Avatar } from "antd";
 import styled from "styled-components";
 import { DefaultAvatar } from "../../utils/constants";
@@ -51,5 +52,11 @@ const ConversationCard = ({
     </Wrapper>
   );
 };
-
+ConversationCard.propTypes = {
+  title: PropTypes.string,
+  sender: PropTypes.string,
+  message: PropTypes.string,
+  selected: PropTypes.bool,
+  avatar: PropTypes.any,
+};
 export default ConversationCard;
